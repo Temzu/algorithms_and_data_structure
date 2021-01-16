@@ -15,9 +15,10 @@ public class homework {
     // O(n) - линейный поиск
     public static double elevate(int number, int degree) {
         double result = 1.0;
+        int absDegree = Math.abs(degree);
         if (degree == 0)
             return result;
-        for (int i = 0; i < Math.abs(degree); i++) {
+        for (int i = 0; i < absDegree; i++) {
             result *= number;
         }
         if (degree < 0) {
