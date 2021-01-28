@@ -1,15 +1,15 @@
 package com.geekbrains.temzu.homeworks.lesson_4.Iterator;
 
 import com.geekbrains.temzu.homeworks.lesson_4.Cat;
-import com.geekbrains.temzu.homeworks.lesson_4.Node;
+import com.geekbrains.temzu.homeworks.lesson_4.LinkedList.Node;
 
 public interface SingleLinkIterator {
-    void reset();
+    void resetToStart();
     void next();
     Node getCurrent();
     boolean atEnd();
-    void insertBefore(Cat cat);
-    void insertAfter(Cat cat);
+    boolean insertBefore(Cat cat);
+    boolean insertAfter(Cat cat);
     Cat deleteCurrent();
 // class iteroCat
     // reset()

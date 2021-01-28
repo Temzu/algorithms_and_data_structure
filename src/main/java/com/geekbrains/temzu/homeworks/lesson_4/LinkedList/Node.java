@@ -1,4 +1,6 @@
-package com.geekbrains.temzu.homeworks.lesson_4;
+package com.geekbrains.temzu.homeworks.lesson_4.LinkedList;
+
+import com.geekbrains.temzu.homeworks.lesson_4.Cat;
 
 import java.util.Objects;
 
