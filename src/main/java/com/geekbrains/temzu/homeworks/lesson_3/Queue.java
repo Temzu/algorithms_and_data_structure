@@ -42,5 +42,9 @@ public class Queue {
         return temp;
     }
 
+    public int peak() {
+        return queue[head];
+    }
+
 }
 

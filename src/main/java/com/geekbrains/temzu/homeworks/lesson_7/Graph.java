@@ -3,14 +3,27 @@ package com.geekbrains.temzu.homeworks.lesson_7;
 import com.geekbrains.temzu.homeworks.lesson_3.Queue;
 import com.geekbrains.temzu.homeworks.lesson_3.Stack;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 class Graph {
     private class Vertex {
         char label;
         boolean wasVisited;
+        private Vertex previousVertex;
 
         public Vertex(char label) {
             this.label = label;
             this.wasVisited = false;
+        }
+
+        public Vertex getPreviousVertex() {
+            return previousVertex;
+        }
+
+        public void setPreviousVertex(Vertex previousVertex) {
+            this.previousVertex = previousVertex;
         }
 
         @Override
@@ -85,4 +98,50 @@ class Graph {
             vertexList[i].wasVisited = false;
         }
     }
+
+    private void visitVertex(int vertexIndex, Queue queue) {
+        queue.insert(vertexIndex);
+        vertexList[vertexIndex].wasVisited = true;
+    }
+
+    public List<Character> findShortestWay(char start, char finish) {
+        int startIndex = indexOf(start);
+        int finishIndex = indexOf(finish);
+        if (startIndex == -1 || finishIndex == -1) {
+            throw new IllegalArgumentException("Vertex not found: StartIndex = " + startIndex + " FinishIndex = " + finishIndex);
+        }
+        Queue queue = new Queue(MAX_VERTICES);
+        visitVertex(startIndex, queue);
+        int currentVertex;
+        while (!queue.isEmpty()) {
+            currentVertex = getUnvisitedVertex(queue.peak());
+            if (currentVertex == -1) {
+                queue.remove();
+            } else {
+                visitVertex(currentVertex, queue);
+                vertexList[currentVertex].setPreviousVertex(vertexList[queue.peak()]);
+                if (vertexList[currentVertex].label == finish) {
+                    List<Character> list = new ArrayList<>();
+                    Vertex vertex = vertexList[currentVertex];
+                    while (vertex != null) {
+                        list.add(vertex.label);
+                        vertex = vertex.getPreviousVertex();
+                    }
+                    Collections.reverse(list);
+                    return list;
+                }
+            }
+        }
+        return null;
+    }
+
+    private int indexOf(char el) {
+        for (int i = 0; i < currentSize; i++) {
+            if (vertexList[i].label == el) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }
